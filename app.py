@@ -7,8 +7,6 @@ import numpy as np
 import pandas as pd
 import datetime as dt
 
-
-
 app = dash.Dash(
     __name__,
     meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}],
@@ -21,7 +19,10 @@ app.config.suppress_callback_exceptions = True
 
 # Load data from csv
 def load_data():
-    # To do: Completar la funciÃ³n 
+    df_datos_energia = pd.read_csv('./datos_energia.csv')
+    df_datos_energia['time'] = pd.to_datetime(df_datos_energia['time'])
+    df_datos_energia.set_index('time', inplace=True)
+    return df_datos_energia
     
 
 # Cargar datos
@@ -240,4 +241,4 @@ def update_output_div(date, hour, proy):
 
 # Run the server
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run(debug=True)
